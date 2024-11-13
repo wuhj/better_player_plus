@@ -108,20 +108,21 @@ import PINCache
             playerItem = self._preCachedURLs[_key]!
             self._preCachedURLs.removeValue(forKey: _key)
         } else {
-            // Trying to retrieve a track from cache syncronously
-            let data = try? storage?.object(forKey: _key)
-            if data != nil {
-                // The file is cached.
+            // Trying to retrieve a track from cache synchronously
+            if let data = try? storage?.object(forKey: _key), let unwrappedData = data {
+                // 数据存在，继续处理
                 self._existsInStorage = true
-                let mimeTypeResult = getMimeType(url:url, explicitVideoExtension: videoExtension)
-                if (mimeTypeResult.1.isEmpty){
+                let mimeTypeResult = getMimeType(url: url, explicitVideoExtension: videoExtension)
+
+                if mimeTypeResult.1.isEmpty {
                     NSLog("Cache error: couldn't find mime type for url: \(url.absoluteURL). For this URL cache didn't work and video will be played without cache.")
                     playerItem = CachingPlayerItem(url: url, cacheKey: _key, headers: headers)
                 } else {
-                    playerItem = CachingPlayerItem(data: data!, mimeType: mimeTypeResult.1, fileExtension: mimeTypeResult.0)
+                    // 使用缓存中的数据创建 `CachingPlayerItem`
+                    playerItem = CachingPlayerItem(data: unwrappedData, mimeType: mimeTypeResult.1, fileExtension: mimeTypeResult.0)
                 }
             } else {
-                // The file is not cached.
+                // 如果没有缓存数据，使用 URL 创建 `CachingPlayerItem`
                 playerItem = CachingPlayerItem(url: url, cacheKey: _key, headers: headers)
                 self._existsInStorage = false
             }
