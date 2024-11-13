@@ -567,6 +567,7 @@ static inline CGFloat radiansToDegrees(CGFloat radians) {
         if (@available(iOS 16, *)) {
             _player.defaultRate = speed;
         }
+        _playerRate = speed;
         _player.rate = speed;
     }
 }
