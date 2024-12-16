@@ -327,8 +327,8 @@ internal class BetterPlayer(
                 setUseStopAction(false)
             }
 
-            setupMediaSession(context)?.let {
-                setMediaSession(it)
+            setupMediaSession(context)?.let { mediaSession ->
+                setMediaSession(mediaSession) // 使用 setMediaSession 方法
             }
         }
 
