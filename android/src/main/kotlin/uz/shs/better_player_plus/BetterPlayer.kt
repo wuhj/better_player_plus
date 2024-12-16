@@ -328,7 +328,7 @@ internal class BetterPlayer(
             }
 
             setupMediaSession(context)?.let { mediaSession ->
-                setMediaSession(mediaSession) // 使用 setMediaSession 方法
+                playerNotificationManager?.setMediaSession(mediaSession)
             }
         }
 
