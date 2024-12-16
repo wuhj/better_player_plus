@@ -328,7 +328,7 @@ internal class BetterPlayer(
             }
 
             setupMediaSession(context)?.let {
-                setSessionToken(it.sessionToken)
+                setMediaSession(it)
             }
         }
 
