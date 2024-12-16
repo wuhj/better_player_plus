@@ -327,8 +327,8 @@ internal class BetterPlayer(
                 setUseStopAction(false)
             }
 
-            setupMediaSession(context)?.let { mediaSession ->
-                playerNotificationManager?.setMediaSession(mediaSession)
+            setupMediaSession(context)?.let {
+                setMediaSessionToken(it.sessionToken)
             }
         }
 
